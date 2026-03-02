@@ -1,0 +1,92 @@
+spring:
+  application:
+    name: auth-backend
+  datasource:
+    url: ${AUTH_DB_URL:jdbc:postgresql://localhost:5432/postgres?currentSchema=authdb}
+    username: ${AUTH_DB_USERNAME:postgres}
+    password: ${AUTH_DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 2s
+      connect-timeout: 2s
+      lettuce:
+        shutdown-timeout: 1s
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    virtual-host: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  file:
+    path: logs
+    name: logs/auth-backend.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 30
+      total-size-cap: 1GB
+  level:
+    com.javaproject.application: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+
+app:
+  jwt:
+    private-key-path: keys/jwt-private.pem
+    public-key-path: keys/jwt-public.pem
+    access-token-expiration-ms: 900000       # 15 minutes
+    refresh-token-expiration-ms: 604800000   # 7 days
+    issuer: auth-backend
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:5173
+    max-age-seconds: 3600
+  cookie:
+    domain:                                  # leave empty for localhost
+    secure: false                            # set true in production (HTTPS)
+    same-site: Lax                           # Lax for dev, Strict for production
+    path: /
+  auth:
+    default-method: JWT
+  security:
+    policy:
+      enable: DEFAULT
+    password:
+      algo: BCRYPT
+  notifications:
+    exchange: notifications.events
+    routing-key:
+      email: email.send
+    registration-otp:
+      expiry-minutes: 10
+      max-attempts: 5
+      cooldown-minutes: 15
+      resend-cooldown-seconds: 60
+
+cache:
+  local:
+    ttl-minutes: 10
+    max-size: 100
+  redis:
+    ttl-minutes: 30

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- ============================================================ -->
+    <!-- Properties — configurable via application.yaml or defaults   -->
+    <!-- ============================================================ -->
+    <springProperty scope="context" name="APP_NAME"      source="spring.application.name" defaultValue="auth-backend"/>
+    <springProperty scope="context" name="LOG_DIR"        source="logging.file.path"       defaultValue="logs"/>
+    <springProperty scope="context" name="LOG_FILE"       source="logging.file.name"       defaultValue="${LOG_DIR}/${APP_NAME}.log"/>
+    <springProperty scope="context" name="MAX_FILE_SIZE"  source="logging.logback.rollingpolicy.max-file-size"  defaultValue="50MB"/>
+    <springProperty scope="context" name="MAX_HISTORY"    source="logging.logback.rollingpolicy.max-history"    defaultValue="30"/>
+    <springProperty scope="context" name="TOTAL_SIZE_CAP" source="logging.logback.rollingpolicy.total-size-cap" defaultValue="1GB"/>
+
+    <!-- ============================================================ -->
+    <!-- Log pattern — includes requestId from MDC for tracing        -->
+    <!-- Format: timestamp [thread] level requestId logger — message  -->
+    <!-- ============================================================ -->
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{requestId:-NO_REQ_ID}] %logger{36} — %msg%n"/>
+
+    <!-- ============================================================ -->
+    <!-- Console appender                                             -->
+    <!-- ============================================================ -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ============================================================ -->
+    <!-- Rolling file appender — daily + size based rotation          -->
+    <!-- ============================================================ -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${APP_NAME}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- ============================================================ -->
+    <!-- Logger levels                                                -->
+    <!-- ============================================================ -->
+    <logger name="com.javaproject.application" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="org.springframework.web" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>

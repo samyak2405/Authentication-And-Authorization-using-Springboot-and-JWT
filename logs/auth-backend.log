@@ -1,0 +1,152 @@
+2026-03-03 00:00:07.665 [http-nio-8080-exec-6] INFO  [580b1f13-def0-46f8-816e-22f087645c31] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:00:07.700 [http-nio-8080-exec-6] INFO  [580b1f13-def0-46f8-816e-22f087645c31] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=14ms
+2026-03-03 00:00:22.666 [http-nio-8080-exec-7] INFO  [5f3efc5c-3c25-41b6-812a-353c2e46c41c] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:00:22.686 [http-nio-8080-exec-7] INFO  [5f3efc5c-3c25-41b6-812a-353c2e46c41c] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=19ms
+2026-03-03 00:00:37.666 [http-nio-8080-exec-8] INFO  [db89a81d-2959-42c7-ac99-dfca036c1cbe] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:00:37.687 [http-nio-8080-exec-8] INFO  [db89a81d-2959-42c7-ac99-dfca036c1cbe] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=19ms
+2026-03-03 00:00:52.662 [http-nio-8080-exec-9] INFO  [1f6a8366-ad19-470d-b937-62ae6c74e582] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:00:52.670 [http-nio-8080-exec-9] INFO  [1f6a8366-ad19-470d-b937-62ae6c74e582] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=7ms
+2026-03-03 00:01:07.666 [http-nio-8080-exec-10] INFO  [99742142-c799-4d30-9825-40ff62e16200] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:01:07.696 [http-nio-8080-exec-10] INFO  [99742142-c799-4d30-9825-40ff62e16200] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=28ms
+2026-03-03 00:01:22.664 [http-nio-8080-exec-2] INFO  [4f8a4463-f508-4057-bec5-2a4e8d2f52b6] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:01:22.676 [http-nio-8080-exec-2] INFO  [4f8a4463-f508-4057-bec5-2a4e8d2f52b6] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=11ms
+2026-03-03 00:01:37.663 [http-nio-8080-exec-3] INFO  [36295a90-573e-49b0-aaa8-4fb6fee79c11] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:01:37.681 [http-nio-8080-exec-3] INFO  [36295a90-573e-49b0-aaa8-4fb6fee79c11] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=17ms
+2026-03-03 00:01:52.661 [http-nio-8080-exec-1] INFO  [bf4279f8-1ca8-4144-a63a-235f371c36d4] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:01:52.664 [http-nio-8080-exec-1] INFO  [bf4279f8-1ca8-4144-a63a-235f371c36d4] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=3ms
+2026-03-03 00:02:07.661 [http-nio-8080-exec-4] INFO  [c8a56c52-ceef-40fa-92e8-f50cfd3824b4] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:02:07.682 [http-nio-8080-exec-4] INFO  [c8a56c52-ceef-40fa-92e8-f50cfd3824b4] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=21ms
+2026-03-03 00:02:22.664 [http-nio-8080-exec-5] INFO  [61f89dd0-1f86-4126-bf10-6d96b9fca436] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:02:22.676 [http-nio-8080-exec-5] INFO  [61f89dd0-1f86-4126-bf10-6d96b9fca436] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=11ms
+2026-03-03 00:02:37.666 [http-nio-8080-exec-6] INFO  [3262f2e0-deef-4534-b07f-5b95a407958b] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:02:37.690 [http-nio-8080-exec-6] INFO  [3262f2e0-deef-4534-b07f-5b95a407958b] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=22ms
+2026-03-03 00:02:52.657 [http-nio-8080-exec-7] INFO  [4093232b-f903-42e5-a64e-2bcff6b5666b] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:02:52.664 [http-nio-8080-exec-7] INFO  [4093232b-f903-42e5-a64e-2bcff6b5666b] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=6ms
+2026-03-03 00:03:07.669 [http-nio-8080-exec-8] INFO  [05780166-5a78-4d49-b516-604ed759cfc3] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:03:07.710 [http-nio-8080-exec-8] INFO  [05780166-5a78-4d49-b516-604ed759cfc3] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=39ms
+2026-03-03 00:03:22.663 [http-nio-8080-exec-9] INFO  [5d8b525a-0eb3-4701-b33a-fc02808daed8] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:03:22.671 [http-nio-8080-exec-9] INFO  [5d8b525a-0eb3-4701-b33a-fc02808daed8] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=7ms
+2026-03-03 00:03:37.668 [http-nio-8080-exec-10] INFO  [6d9291de-9256-4caf-b731-870c1593c8b5] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:03:37.716 [http-nio-8080-exec-10] INFO  [6d9291de-9256-4caf-b731-870c1593c8b5] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=47ms
+2026-03-03 00:03:52.663 [http-nio-8080-exec-2] INFO  [02683556-5c6c-4c65-8f12-c67ebf56e841] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:03:52.679 [http-nio-8080-exec-2] INFO  [02683556-5c6c-4c65-8f12-c67ebf56e841] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=15ms
+2026-03-03 00:04:07.670 [http-nio-8080-exec-3] INFO  [a48e3f19-97af-40de-8927-3580dada74fc] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:04:07.689 [http-nio-8080-exec-3] INFO  [a48e3f19-97af-40de-8927-3580dada74fc] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=19ms
+2026-03-03 00:04:22.667 [http-nio-8080-exec-1] INFO  [325fe6b6-98fe-4452-a683-e128b9196b93] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:04:22.705 [http-nio-8080-exec-1] INFO  [325fe6b6-98fe-4452-a683-e128b9196b93] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=37ms
+2026-03-03 00:04:37.671 [http-nio-8080-exec-4] INFO  [ba0dd4a2-2140-4770-9236-8dbd4019f300] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:04:37.716 [http-nio-8080-exec-4] INFO  [ba0dd4a2-2140-4770-9236-8dbd4019f300] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=42ms
+2026-03-03 00:04:52.668 [http-nio-8080-exec-5] INFO  [6d8552bb-e023-4b42-a25e-c9706b284293] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:04:52.708 [http-nio-8080-exec-5] INFO  [6d8552bb-e023-4b42-a25e-c9706b284293] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=39ms
+2026-03-03 00:05:07.661 [http-nio-8080-exec-6] INFO  [3fb4c6b7-b20d-402e-b895-d2cfebedae33] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:05:07.672 [http-nio-8080-exec-6] INFO  [3fb4c6b7-b20d-402e-b895-d2cfebedae33] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=10ms
+2026-03-03 00:05:22.656 [http-nio-8080-exec-7] INFO  [0a47f281-2443-48a5-8871-21774f21261a] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:05:22.663 [http-nio-8080-exec-7] INFO  [0a47f281-2443-48a5-8871-21774f21261a] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=7ms
+2026-03-03 00:05:37.663 [http-nio-8080-exec-8] INFO  [eae2cd9c-29ba-477c-92dc-ce6fab8f0411] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:05:37.697 [http-nio-8080-exec-8] INFO  [eae2cd9c-29ba-477c-92dc-ce6fab8f0411] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=33ms
+2026-03-03 00:05:52.658 [http-nio-8080-exec-9] INFO  [db3125c4-17ef-4746-a32d-2e16eb29846d] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:05:52.663 [http-nio-8080-exec-9] INFO  [db3125c4-17ef-4746-a32d-2e16eb29846d] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=5ms
+2026-03-03 00:06:07.670 [http-nio-8080-exec-10] INFO  [309001dd-5863-475c-a2cf-f2be5e2c8c9a] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:06:07.695 [http-nio-8080-exec-10] INFO  [309001dd-5863-475c-a2cf-f2be5e2c8c9a] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=25ms
+2026-03-03 00:06:23.014 [http-nio-8080-exec-2] INFO  [318c48bc-5f68-482b-b965-82daa3a82882] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:06:23.394 [http-nio-8080-exec-2] INFO  [318c48bc-5f68-482b-b965-82daa3a82882] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=260ms
+2026-03-03 00:06:37.667 [http-nio-8080-exec-3] INFO  [25253f8c-3a16-4780-acc2-0967c22654a2] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:06:37.685 [http-nio-8080-exec-3] INFO  [25253f8c-3a16-4780-acc2-0967c22654a2] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=16ms
+2026-03-03 00:06:52.668 [http-nio-8080-exec-1] INFO  [c51ec75f-200c-4783-99d3-d6303ce3fa73] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:06:52.724 [http-nio-8080-exec-1] INFO  [c51ec75f-200c-4783-99d3-d6303ce3fa73] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=55ms
+2026-03-03 00:07:07.683 [http-nio-8080-exec-4] INFO  [3d425ecf-13c5-4e30-8f9f-d5910196b659] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:07:07.718 [http-nio-8080-exec-4] INFO  [3d425ecf-13c5-4e30-8f9f-d5910196b659] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=33ms
+2026-03-03 00:07:22.668 [http-nio-8080-exec-5] INFO  [4d1ee0be-705a-493b-a581-0fe5469eaf42] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:07:22.685 [http-nio-8080-exec-5] INFO  [4d1ee0be-705a-493b-a581-0fe5469eaf42] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=14ms
+2026-03-03 00:07:37.662 [http-nio-8080-exec-6] INFO  [3d73636f-70bb-4ef4-b838-74bb5b7c984a] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:07:37.673 [http-nio-8080-exec-6] INFO  [3d73636f-70bb-4ef4-b838-74bb5b7c984a] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=11ms
+2026-03-03 00:07:52.667 [http-nio-8080-exec-7] INFO  [edeb220f-4fe6-495e-a714-847a4582eee9] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:07:52.690 [http-nio-8080-exec-7] INFO  [edeb220f-4fe6-495e-a714-847a4582eee9] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=22ms
+2026-03-03 00:08:07.670 [http-nio-8080-exec-8] INFO  [d521f8b4-1ddd-4a3d-860a-a6b78ba7bb21] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:08:07.690 [http-nio-8080-exec-8] INFO  [d521f8b4-1ddd-4a3d-860a-a6b78ba7bb21] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=20ms
+2026-03-03 00:08:22.679 [http-nio-8080-exec-9] INFO  [3d43fc4e-e3d6-46b1-9e95-2f5e0f32a4da] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:08:22.699 [http-nio-8080-exec-9] INFO  [3d43fc4e-e3d6-46b1-9e95-2f5e0f32a4da] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=16ms
+2026-03-03 00:08:37.662 [http-nio-8080-exec-10] INFO  [e65b9fca-0926-463e-8aa2-cbe3c38f8a67] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:08:37.685 [http-nio-8080-exec-10] INFO  [e65b9fca-0926-463e-8aa2-cbe3c38f8a67] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=23ms
+2026-03-03 00:08:52.662 [http-nio-8080-exec-2] INFO  [61e05e59-fc4b-4528-8045-896108c7b9ff] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:08:52.674 [http-nio-8080-exec-2] INFO  [61e05e59-fc4b-4528-8045-896108c7b9ff] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=12ms
+2026-03-03 00:09:07.661 [http-nio-8080-exec-3] INFO  [b69a6568-1679-470f-961e-890e59a06cd9] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:09:07.692 [http-nio-8080-exec-3] INFO  [b69a6568-1679-470f-961e-890e59a06cd9] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=29ms
+2026-03-03 00:09:22.662 [http-nio-8080-exec-1] INFO  [b6a818e8-7021-4ba3-ac4f-f05b1021ed3a] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:09:22.680 [http-nio-8080-exec-1] INFO  [b6a818e8-7021-4ba3-ac4f-f05b1021ed3a] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=17ms
+2026-03-03 00:09:37.665 [http-nio-8080-exec-4] INFO  [50dd50fd-e8cd-4d3d-869f-e15f06086dcb] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:09:37.688 [http-nio-8080-exec-4] INFO  [50dd50fd-e8cd-4d3d-869f-e15f06086dcb] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=23ms
+2026-03-03 00:09:52.665 [http-nio-8080-exec-5] INFO  [b787cac9-0529-46b6-be69-b6241847e8e2] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:09:52.686 [http-nio-8080-exec-5] INFO  [b787cac9-0529-46b6-be69-b6241847e8e2] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=20ms
+2026-03-03 00:10:07.690 [http-nio-8080-exec-6] INFO  [ec758cf6-a92d-4f2a-8149-7254a8306538] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:10:07.730 [http-nio-8080-exec-6] INFO  [ec758cf6-a92d-4f2a-8149-7254a8306538] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=36ms
+2026-03-03 00:10:22.669 [http-nio-8080-exec-7] INFO  [e80e8e10-1a47-440c-9b0b-94be200fb9d9] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:10:22.727 [http-nio-8080-exec-7] INFO  [e80e8e10-1a47-440c-9b0b-94be200fb9d9] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=58ms
+2026-03-03 00:10:37.677 [http-nio-8080-exec-8] INFO  [3e6ae7d9-6f3e-426f-a4ab-e6c81efce566] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:10:37.715 [http-nio-8080-exec-8] INFO  [3e6ae7d9-6f3e-426f-a4ab-e6c81efce566] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=33ms
+2026-03-03 00:10:52.670 [http-nio-8080-exec-9] INFO  [c4ba1e96-1b02-43a5-9c0f-74651fa90feb] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:10:52.713 [http-nio-8080-exec-9] INFO  [c4ba1e96-1b02-43a5-9c0f-74651fa90feb] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=42ms
+2026-03-03 00:11:07.663 [http-nio-8080-exec-10] INFO  [dcfd7ac2-d380-41e2-b203-7bfb633f1f83] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:11:07.688 [http-nio-8080-exec-10] INFO  [dcfd7ac2-d380-41e2-b203-7bfb633f1f83] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=23ms
+2026-03-03 00:11:22.667 [http-nio-8080-exec-2] INFO  [9cab9aa3-04d7-430a-b6f6-006852fc0a95] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:11:22.691 [http-nio-8080-exec-2] INFO  [9cab9aa3-04d7-430a-b6f6-006852fc0a95] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=23ms
+2026-03-03 00:11:37.677 [http-nio-8080-exec-3] INFO  [414b7693-73d4-4525-ab36-883b968e372f] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:11:37.699 [http-nio-8080-exec-3] INFO  [414b7693-73d4-4525-ab36-883b968e372f] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=21ms
+2026-03-03 00:11:52.661 [http-nio-8080-exec-1] INFO  [437cbdb3-f766-493c-8284-0403e3971eef] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:11:52.680 [http-nio-8080-exec-1] INFO  [437cbdb3-f766-493c-8284-0403e3971eef] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=18ms
+2026-03-03 00:12:07.669 [http-nio-8080-exec-4] INFO  [986a7167-4517-4bdb-99d6-a4c341741db9] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:12:07.697 [http-nio-8080-exec-4] INFO  [986a7167-4517-4bdb-99d6-a4c341741db9] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=20ms
+2026-03-03 00:12:22.659 [http-nio-8080-exec-5] INFO  [ad569088-ada8-46cd-aa25-053a6a66a5e6] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:12:22.670 [http-nio-8080-exec-5] INFO  [ad569088-ada8-46cd-aa25-053a6a66a5e6] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=11ms
+2026-03-03 00:12:37.666 [http-nio-8080-exec-6] INFO  [34e652f4-c1a3-4e0a-8fc1-d1bbcd3cdba5] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:12:37.696 [http-nio-8080-exec-6] INFO  [34e652f4-c1a3-4e0a-8fc1-d1bbcd3cdba5] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=29ms
+2026-03-03 00:12:52.662 [http-nio-8080-exec-7] INFO  [d2b6b7c9-2e4f-4e16-8bb0-cde63c415593] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:12:52.676 [http-nio-8080-exec-7] INFO  [d2b6b7c9-2e4f-4e16-8bb0-cde63c415593] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=13ms
+2026-03-03 00:13:07.665 [http-nio-8080-exec-8] INFO  [298599a0-a7cb-4566-b85f-793d122cd6e7] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:13:07.682 [http-nio-8080-exec-8] INFO  [298599a0-a7cb-4566-b85f-793d122cd6e7] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=15ms
+2026-03-03 00:13:22.666 [http-nio-8080-exec-9] INFO  [c6d6ebdb-8aaf-4d13-9ab7-6a86b7476b39] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:13:22.683 [http-nio-8080-exec-9] INFO  [c6d6ebdb-8aaf-4d13-9ab7-6a86b7476b39] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=16ms
+2026-03-03 00:13:37.663 [http-nio-8080-exec-10] INFO  [209883a3-b821-4ffc-ad79-f8c298d22ee0] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:13:37.701 [http-nio-8080-exec-10] INFO  [209883a3-b821-4ffc-ad79-f8c298d22ee0] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=36ms
+2026-03-03 00:13:52.667 [http-nio-8080-exec-2] INFO  [b1aa8ee4-5afd-4a2d-b8f4-b5a14681a5e1] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:13:52.696 [http-nio-8080-exec-2] INFO  [b1aa8ee4-5afd-4a2d-b8f4-b5a14681a5e1] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=27ms
+2026-03-03 00:14:07.664 [http-nio-8080-exec-3] INFO  [b5295014-58a2-463c-8b6c-92fb78fb0ddb] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:14:07.688 [http-nio-8080-exec-3] INFO  [b5295014-58a2-463c-8b6c-92fb78fb0ddb] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=24ms
+2026-03-03 00:14:22.665 [http-nio-8080-exec-1] INFO  [eda249d6-b617-4d9e-b484-535403e7494e] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:14:22.675 [http-nio-8080-exec-1] INFO  [eda249d6-b617-4d9e-b484-535403e7494e] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=10ms
+2026-03-03 00:14:37.663 [http-nio-8080-exec-4] INFO  [b24a1db9-f498-4609-b967-5aeb3d5679b6] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:14:37.714 [http-nio-8080-exec-4] INFO  [b24a1db9-f498-4609-b967-5aeb3d5679b6] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=50ms
+2026-03-03 00:14:52.668 [http-nio-8080-exec-5] INFO  [bb6695fe-1c29-4a1b-bedc-724f2021c4ac] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:14:52.686 [http-nio-8080-exec-5] INFO  [bb6695fe-1c29-4a1b-bedc-724f2021c4ac] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=18ms
+2026-03-03 00:15:07.676 [http-nio-8080-exec-6] INFO  [4e66ecc0-ddc9-434c-8139-f8ed8d2a4ed1] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:15:07.695 [http-nio-8080-exec-6] INFO  [4e66ecc0-ddc9-434c-8139-f8ed8d2a4ed1] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=18ms
+2026-03-03 00:15:22.675 [http-nio-8080-exec-7] INFO  [d292404a-be1f-4c86-913d-68efd51b4e31] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:15:22.697 [http-nio-8080-exec-7] INFO  [d292404a-be1f-4c86-913d-68efd51b4e31] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=21ms
+2026-03-03 00:15:37.666 [http-nio-8080-exec-8] INFO  [eabefa9c-d8f8-4044-9cb7-efef3a7c625c] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:15:37.701 [http-nio-8080-exec-8] INFO  [eabefa9c-d8f8-4044-9cb7-efef3a7c625c] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=34ms
+2026-03-03 00:15:52.671 [http-nio-8080-exec-9] INFO  [689e4f04-2a3a-44ff-ae32-9b4dfa9e6867] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:15:52.714 [http-nio-8080-exec-9] INFO  [689e4f04-2a3a-44ff-ae32-9b4dfa9e6867] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=42ms
+2026-03-03 00:16:07.665 [http-nio-8080-exec-10] INFO  [8728f297-92ff-459b-84d3-a45af49bce7b] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:16:07.689 [http-nio-8080-exec-10] INFO  [8728f297-92ff-459b-84d3-a45af49bce7b] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=21ms
+2026-03-03 00:16:22.662 [http-nio-8080-exec-2] INFO  [6fa197af-01b6-406f-a744-9c3c9ec95203] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:16:22.680 [http-nio-8080-exec-2] INFO  [6fa197af-01b6-406f-a744-9c3c9ec95203] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=17ms
+2026-03-03 00:16:37.672 [http-nio-8080-exec-3] INFO  [b0de2034-ab84-4f9f-9257-ebffdf0f5690] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:16:37.698 [http-nio-8080-exec-3] INFO  [b0de2034-ab84-4f9f-9257-ebffdf0f5690] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=24ms
+2026-03-03 00:16:52.672 [http-nio-8080-exec-1] INFO  [2c49383e-9650-4339-b701-d82ab82c8005] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:16:52.699 [http-nio-8080-exec-1] INFO  [2c49383e-9650-4339-b701-d82ab82c8005] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=26ms
+2026-03-03 00:17:07.673 [http-nio-8080-exec-4] INFO  [e61fa6d0-364b-4404-8357-4bf8437445e2] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:17:07.710 [http-nio-8080-exec-4] INFO  [e61fa6d0-364b-4404-8357-4bf8437445e2] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=35ms
+2026-03-03 00:17:22.667 [http-nio-8080-exec-5] INFO  [a9d31607-ab13-4358-b33b-8e7758354ab5] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:17:22.689 [http-nio-8080-exec-5] INFO  [a9d31607-ab13-4358-b33b-8e7758354ab5] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=21ms
+2026-03-03 00:17:37.664 [http-nio-8080-exec-6] INFO  [2e6e4e6d-2c3e-4858-9eb3-4b00d9a23a29] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:17:37.676 [http-nio-8080-exec-6] INFO  [2e6e4e6d-2c3e-4858-9eb3-4b00d9a23a29] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=11ms
+2026-03-03 00:17:52.673 [http-nio-8080-exec-7] INFO  [9f240bb9-9ef6-49c3-a917-f52c1f2982b0] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:17:52.701 [http-nio-8080-exec-7] INFO  [9f240bb9-9ef6-49c3-a917-f52c1f2982b0] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=28ms
+2026-03-03 00:18:07.667 [http-nio-8080-exec-8] INFO  [a3091f84-67c5-48d7-bd6b-ea710926ad06] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:18:07.689 [http-nio-8080-exec-8] INFO  [a3091f84-67c5-48d7-bd6b-ea710926ad06] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=20ms
+2026-03-03 00:18:22.672 [http-nio-8080-exec-9] INFO  [d85f70d3-b5ff-4301-934d-b288f17ffadb] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:18:22.712 [http-nio-8080-exec-9] INFO  [d85f70d3-b5ff-4301-934d-b288f17ffadb] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=37ms
+2026-03-03 00:18:37.667 [http-nio-8080-exec-10] INFO  [2de5020e-0455-4656-97c6-da8e4f5a891b] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:18:37.689 [http-nio-8080-exec-10] INFO  [2de5020e-0455-4656-97c6-da8e4f5a891b] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=21ms
+2026-03-03 00:18:52.676 [http-nio-8080-exec-2] INFO  [8e1564a1-3ea0-49b6-9a54-ca94dcaaa245] c.j.a.filter.RequestLoggingFilter — >> GET /actuator/prometheus
+2026-03-03 00:18:52.710 [http-nio-8080-exec-2] INFO  [8e1564a1-3ea0-49b6-9a54-ca94dcaaa245] c.j.a.filter.RequestLoggingFilter — << GET /actuator/prometheus | status=200 | time=30ms
