@@ -26,8 +26,11 @@ public class User {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(name = "email", nullable = false, unique = true, length = 255)
+    @Column(name = "email", unique = true, length = 255)
     private String email;
+
+    @Column(name = "mobile", unique = true, length = 20)
+    private String mobile;
 
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;

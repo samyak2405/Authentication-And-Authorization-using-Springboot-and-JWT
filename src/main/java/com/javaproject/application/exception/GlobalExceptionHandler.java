@@ -1,6 +1,7 @@
 package com.javaproject.application.exception;
 
 import com.javaproject.application.dto.response.ApiResponse;
+import com.javaproject.application.exception.custom.AccountNotVerifiedException;
 import com.javaproject.application.exception.custom.ApiValidationException;
 import com.javaproject.application.exception.custom.ProcessApiException;
 import jakarta.persistence.EntityNotFoundException;
@@ -148,6 +149,23 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         return errorResponse(request, ex.getStatus(), ex.getMessage(), null);
+    }
+
+    @ExceptionHandler(AccountNotVerifiedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiResponse<Object> handleAccountNotVerified(
+            AccountNotVerifiedException ex,
+            HttpServletRequest request
+    ) {
+        Map<String, String> data = new HashMap<>();
+        data.put("code", "ACCOUNT_NOT_VERIFIED");
+        if (ex.getEmail() != null) {
+            data.put("email", ex.getEmail());
+        }
+        if (ex.getMobile() != null) {
+            data.put("mobile", ex.getMobile());
+        }
+        return errorResponse(request, ex.getStatus(), ex.getMessage(), data);
     }
 
     @ExceptionHandler(ProcessApiException.class)

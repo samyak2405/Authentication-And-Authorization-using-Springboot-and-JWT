@@ -17,10 +17,15 @@ import lombok.Setter;
 @Builder
 public class VerifyRegistrationOtpRequest extends BaseRequest {
 
-    @NotBlank
     @Email
     @Size(max = 255)
     private String email;
+
+    @Pattern(
+            regexp = "^\\+?[1-9]\\d{7,14}$",
+            message = "Mobile number must be in valid international format."
+    )
+    private String mobile;
 
     @NotBlank
     @Pattern(regexp = "\\d{6}", message = "OTP must be exactly 6 digits")

@@ -1,6 +1,7 @@
 package com.javaproject.application.service.impl;
 
 import com.javaproject.application.dto.request.BaseRequest;
+import com.javaproject.application.dto.request.GoogleOAuthLoginRequest;
 import com.javaproject.application.dto.request.LoginUserRequest;
 import com.javaproject.application.dto.response.ApiResponse;
 import com.javaproject.application.dto.response.LoginUserResponse;
@@ -34,7 +35,10 @@ public class LoginService implements ProcessRequest {
      */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public AuthenticationResult authenticate(LoginUserRequest loginRequest) {
-        log.info("LoginService: Processing login request for user: {}", loginRequest.getEmail());
+        String loginIdentifier = loginRequest.getEmail() != null && !loginRequest.getEmail().isBlank()
+                ? loginRequest.getEmail()
+                : loginRequest.getMobile();
+        log.info("LoginService: Processing login request for identifier: {}", loginIdentifier);
 
         String authMethod = loginRequest.getAuthenticationMethod() != null
                 ? loginRequest.getAuthenticationMethod()
@@ -43,7 +47,16 @@ public class LoginService implements ProcessRequest {
         AuthenticationStrategy strategy = authenticationStrategyFactory.getStrategy(authMethod);
         AuthenticationResult result = strategy.authenticate(loginRequest);
 
-        log.info("LoginService: Login successful for user: {}", loginRequest.getEmail());
+        log.info("LoginService: Login successful for identifier: {}", loginIdentifier);
+        return result;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public AuthenticationResult authenticateGoogle(GoogleOAuthLoginRequest googleOAuthLoginRequest) {
+        log.info("LoginService: Processing Google OAuth login request");
+        AuthenticationStrategy strategy = authenticationStrategyFactory.getStrategy("GOOGLE");
+        AuthenticationResult result = strategy.authenticate(googleOAuthLoginRequest);
+        log.info("LoginService: Google OAuth login successful for email: {}", result.getEmail());
         return result;
     }
 
@@ -55,6 +68,7 @@ public class LoginService implements ProcessRequest {
 
         LoginUserResponse responseData = LoginUserResponse.builder()
                 .email(result.getEmail())
+                .mobile(result.getMobile())
                 .roles(result.getRoles())
                 .accessTokenExpiresAt(result.getAccessTokenExpiresAt())
                 .build();

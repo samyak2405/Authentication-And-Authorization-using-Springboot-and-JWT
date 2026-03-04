@@ -5,12 +5,13 @@ import com.javaproject.application.dto.request.VerifyRegistrationOtpRequest;
 import com.javaproject.application.dto.response.ApiResponse;
 import com.javaproject.application.dto.response.VerifyRegistrationOtpResponse;
 import com.javaproject.application.exception.custom.ProcessApiException;
-import com.javaproject.application.model.OtpToken;
 import com.javaproject.application.model.User;
-import com.javaproject.application.repository.OtpTokenRepository;
 import com.javaproject.application.repository.UserRepository;
 import com.javaproject.application.service.ProcessRequest;
+import com.javaproject.application.service.otp.OtpStore;
 import com.javaproject.application.util.PasswordUtility;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +30,8 @@ public class VerifyRegistrationOtpService implements ProcessRequest {
     private static final String REGISTRATION_OTP_PURPOSE = "OTP";
 
     private final UserRepository userRepository;
-    private final OtpTokenRepository otpTokenRepository;
+    private final OtpStore otpStore;
+    private final MeterRegistry meterRegistry;
 
     @Value("${app.notifications.registration-otp.max-attempts:5}")
     private int maxAttempts;
@@ -42,8 +44,7 @@ public class VerifyRegistrationOtpService implements ProcessRequest {
     public ApiResponse<VerifyRegistrationOtpResponse> processApiRequest(BaseRequest baseRequest) {
         VerifyRegistrationOtpRequest request = (VerifyRegistrationOtpRequest) baseRequest;
 
-        User user = userRepository.getByEmail(request.getEmail())
-                .orElseThrow(() -> new ProcessApiException("User not found", HttpStatus.NOT_FOUND));
+        User user = findUser(request.getEmail(), request.getMobile());
 
         if (user.isActive()) {
             return successResponse(request, user, "Account already active.");
@@ -56,50 +57,48 @@ public class VerifyRegistrationOtpService implements ProcessRequest {
             );
         }
 
-        OtpToken otpToken = otpTokenRepository
-                .findFirstByUserAndPurposeAndConsumedAtIsNullOrderByIssuedAtDesc(user, REGISTRATION_OTP_PURPOSE)
-                .orElseThrow(() -> new ProcessApiException("OTP not found for verification", HttpStatus.BAD_REQUEST));
+        OffsetDateTime now = OffsetDateTime.now();
+        OtpStore.OtpVerifyResult verifyResult = otpStore.verify(OtpStore.OtpVerifyRequest.builder()
+                .user(user)
+                .purpose(REGISTRATION_OTP_PURPOSE)
+                .providedTokenHash(PasswordUtility.hashToken(request.getOtp()))
+                .maxAttempts(maxAttempts)
+                .now(now)
+                .build());
 
-        if (otpToken.getExpiresAt().isBefore(OffsetDateTime.now())) {
+        if (verifyResult.getStatus() == OtpStore.OtpVerifyStatus.NOT_FOUND) {
+            Counter.builder("auth.otp.verify.failure").tag("reason", "not_found").register(meterRegistry).increment();
+            throw new ProcessApiException("OTP not found for verification", HttpStatus.BAD_REQUEST);
+        }
+        if (verifyResult.getStatus() == OtpStore.OtpVerifyStatus.EXPIRED) {
+            Counter.builder("auth.otp.verify.failure").tag("reason", "expired").register(meterRegistry).increment();
             throw new ProcessApiException("OTP has expired", HttpStatus.BAD_REQUEST);
         }
-
-        String providedOtpHash = PasswordUtility.hashToken(request.getOtp());
-        if (!providedOtpHash.equals(otpToken.getTokenHash())) {
-            int attempts = otpToken.getAttemptCount() + 1;
-            otpToken.setAttemptCount(attempts);
-
-            if (attempts >= maxAttempts) {
-                OffsetDateTime now = OffsetDateTime.now();
-                OffsetDateTime lockedUntil = now.plusMinutes(cooldownMinutes);
-                otpToken.setConsumedAt(now);
-                otpTokenRepository.save(otpToken);
-
-                user.setLockedUntil(lockedUntil);
-                user.setLockReason("REGISTRATION_OTP_ATTEMPTS_EXCEEDED");
-                user.setUpdatedAt(now);
-                userRepository.save(user);
-
-                throw new ProcessApiException(
-                        "Too many invalid OTP attempts. Account is in cooldown until " + lockedUntil,
-                        HttpStatus.FORBIDDEN
-                );
-            }
-            otpTokenRepository.save(otpToken);
+        if (verifyResult.getStatus() == OtpStore.OtpVerifyStatus.INVALID) {
+            Counter.builder("auth.otp.verify.failure").tag("reason", "invalid").register(meterRegistry).increment();
             throw new ProcessApiException("Invalid OTP", HttpStatus.UNAUTHORIZED);
         }
-
-        otpToken.setAttemptCount(otpToken.getAttemptCount() + 1);
-        otpToken.setConsumedAt(OffsetDateTime.now());
-        otpTokenRepository.save(otpToken);
+        if (verifyResult.getStatus() == OtpStore.OtpVerifyStatus.ATTEMPTS_EXCEEDED) {
+            OffsetDateTime lockedUntil = now.plusMinutes(cooldownMinutes);
+            user.setLockedUntil(lockedUntil);
+            user.setLockReason("REGISTRATION_OTP_ATTEMPTS_EXCEEDED");
+            user.setUpdatedAt(now);
+            userRepository.save(user);
+            Counter.builder("auth.otp.verify.failure").tag("reason", "attempts_exceeded").register(meterRegistry).increment();
+            throw new ProcessApiException(
+                    "Too many invalid OTP attempts. Account is in cooldown until " + lockedUntil,
+                    HttpStatus.FORBIDDEN
+            );
+        }
 
         user.setActive(true);
         user.setLockedUntil(null);
         user.setLockReason(null);
-        user.setUpdatedAt(OffsetDateTime.now());
+        user.setUpdatedAt(now);
         userRepository.save(user);
 
         log.info("Registration OTP verified successfully for user={}", user.getEmail());
+        Counter.builder("auth.otp.verify.success").register(meterRegistry).increment();
         return successResponse(request, user, "OTP verified. Account activated.");
     }
 
@@ -117,8 +116,21 @@ public class VerifyRegistrationOtpService implements ProcessRequest {
         response.setData(VerifyRegistrationOtpResponse.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
+                .mobile(user.getMobile())
                 .active(user.isActive())
                 .build());
         return response;
+    }
+
+    private User findUser(String email, String mobile) {
+        if (email != null && !email.isBlank()) {
+            return userRepository.getByEmail(email.trim())
+                    .orElseThrow(() -> new ProcessApiException("User not found", HttpStatus.NOT_FOUND));
+        }
+        if (mobile != null && !mobile.isBlank()) {
+            return userRepository.getByMobile(mobile.trim())
+                    .orElseThrow(() -> new ProcessApiException("User not found", HttpStatus.NOT_FOUND));
+        }
+        throw new ProcessApiException("Either email or mobile must be provided", HttpStatus.BAD_REQUEST);
     }
 }

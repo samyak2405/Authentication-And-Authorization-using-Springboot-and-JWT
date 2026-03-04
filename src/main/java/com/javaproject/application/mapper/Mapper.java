@@ -30,7 +30,7 @@ public class Mapper {
                 .lockoutDurationMinutes(securityConfigDto.getLockoutDurationMinutes())
                 .mfaRequired(securityConfigDto.isMfaRequired())
                 .passwordExpiryWarningDays(securityConfigDto.getPasswordExpiryWarningDays())
-                .passwordExpiryDays(securityConfigDto.getAccountExpiryDays())
+                .passwordExpiryDays(securityConfigDto.getPasswordMaxAgeDays())
                 .build();
     }
 }

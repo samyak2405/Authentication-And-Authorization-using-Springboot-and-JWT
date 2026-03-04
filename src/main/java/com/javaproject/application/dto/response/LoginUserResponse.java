@@ -19,6 +19,7 @@ public class LoginUserResponse {
 
     private UUID userId;
     private String email;
+    private String mobile;
     private List<String> roles;
     private OffsetDateTime accessTokenExpiresAt;
 }

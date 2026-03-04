@@ -23,6 +23,7 @@ public class AuthenticationResult {
 
     private UUID userId;
     private String email;
+    private String mobile;
     private String accessToken;
     private String refreshToken;
     private OffsetDateTime accessTokenExpiresAt;

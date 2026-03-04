@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -48,11 +47,49 @@ public class RegisterUserService implements ProcessRequest {
         log.info("RegisterUserService: Processing registration request for user: {}", baseRequest.toString());
         ApiResponse<RegisterUserResponse> apiResponse = new ApiResponse<>();
         RegisterUserRequest registerUserRequest = (RegisterUserRequest) baseRequest;
-        try{
-            Optional<User> user = userRepository.getByEmail(registerUserRequest.getEmail());
-            if(user.isPresent()){
-                throw new UserAlreadyExistsException("A user with the provided email already exists.");
+        try {
+            if (isNotBlank(registerUserRequest.getEmail())) {
+                var existingByEmail = userRepository.getByEmail(registerUserRequest.getEmail().trim());
+                if (existingByEmail.isPresent()) {
+                    User existing = existingByEmail.get();
+                    if (!existing.isActive()) {
+                        apiResponse.setSuccess(false);
+                        apiResponse.setResponseCode("VERIFICATION_PENDING");
+                        apiResponse.setResponseMessage("Already signed up. Please verify your account.");
+                        apiResponse.setRequestId(baseRequest.getRequestId());
+                        apiResponse.setTimestamp(OffsetDateTime.now());
+                        apiResponse.setData(RegisterUserResponse.builder()
+                                .userId(existing.getId())
+                                .email(existing.getEmail())
+                                .mobile(existing.getMobile())
+                                .build());
+                        return apiResponse;
+                    }
+                    throw new UserAlreadyExistsException("A user with the provided email already exists.");
+                }
             }
+
+            if (isNotBlank(registerUserRequest.getMobile())) {
+                var existingByMobile = userRepository.getByMobile(registerUserRequest.getMobile().trim());
+                if (existingByMobile.isPresent()) {
+                    User existing = existingByMobile.get();
+                    if (!existing.isActive()) {
+                        apiResponse.setSuccess(false);
+                        apiResponse.setResponseCode("VERIFICATION_PENDING");
+                        apiResponse.setResponseMessage("Already signed up. Please verify your account.");
+                        apiResponse.setRequestId(baseRequest.getRequestId());
+                        apiResponse.setTimestamp(OffsetDateTime.now());
+                        apiResponse.setData(RegisterUserResponse.builder()
+                                .userId(existing.getId())
+                                .email(existing.getEmail())
+                                .mobile(existing.getMobile())
+                                .build());
+                        return apiResponse;
+                    }
+                    throw new UserAlreadyExistsException("A user with the provided mobile already exists.");
+                }
+            }
+
             SecurityConfigDto securityConfigDto = securityPolicyService.getByConfigId(enableSecurityPolicy);
             User newUser = setUser(registerUserRequest, securityConfigDto);
             User savedUser = userRepository.save(newUser);
@@ -66,10 +103,11 @@ public class RegisterUserService implements ProcessRequest {
             apiResponse.setTimestamp(OffsetDateTime.now());
             apiResponse.setResponseCode(HttpStatus.OK.toString());
             apiResponse.setData(RegisterUserResponse.builder()
-                            .userId(savedUser.getId())
-                            .email(savedUser.getEmail())
+                    .userId(savedUser.getId())
+                    .email(savedUser.getEmail())
+                    .mobile(savedUser.getMobile())
                     .build());
-        }catch (UserAlreadyExistsException e){
+        } catch (UserAlreadyExistsException e) {
             log.error("User already exists: {}", e.getMessage());
             apiResponse.setSuccess(false);
             apiResponse.setResponseMessage(e.getMessage());
@@ -77,37 +115,39 @@ public class RegisterUserService implements ProcessRequest {
             apiResponse.setTimestamp(OffsetDateTime.now());
             apiResponse.setResponseCode(HttpStatus.BAD_REQUEST.toString());
             return apiResponse;
-        }catch (DBException dbe){
+        } catch (DBException dbe) {
             log.error("Database error occurred while processing registration request: {}", dbe.getMessage());
             apiResponse.setSuccess(false);
             apiResponse.setResponseMessage("A database error occurred while processing the registration request.");
             apiResponse.setRequestId(baseRequest.getRequestId());
             apiResponse.setTimestamp(OffsetDateTime.now());
             apiResponse.setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-             return apiResponse;
-        }catch (Exception e){
+            return apiResponse;
+        } catch (Exception e) {
             log.error("Error occurred while processing registration request: {}", e.getMessage());
             apiResponse.setSuccess(false);
             apiResponse.setResponseMessage("An error occurred while processing the registration request.");
             apiResponse.setRequestId(baseRequest.getRequestId());
             apiResponse.setTimestamp(OffsetDateTime.now());
             apiResponse.setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-             return apiResponse;
+            return apiResponse;
         }
         return apiResponse;
     }
 
     private User setUser(RegisterUserRequest registerUserRequest, SecurityConfigDto securityConfigDto) {
         return User.builder()
-                .email(registerUserRequest.getEmail())
+                .email(normalize(registerUserRequest.getEmail()))
+                .mobile(normalize(registerUserRequest.getMobile()))
                 .passwordHash(PasswordUtility.hashPassword(registerUserRequest.getPassword()))
                 .passwordAlgo(passwordAlgo)
                 .isActive(false)
-                .accountExpiresAt(OffsetDateTime.now().plusDays(securityConfigDto.getAccountExpiryDays()))
+                .accountExpiresAt(OffsetDateTime.now().plusDays(90))
                 .lockedUntil(null)
                 .lockReason(null)
                 .isMfaEnabled(securityConfigDto.isMfaRequired())
                 .mfaMethod(registerUserRequest.getMfaMethod())
+                .authenticationMethod("JWT")
                 .failedLoginCount(0)
                 .lastFailedLoginAt(null)
                 .lastLoginAt(null)
@@ -130,6 +170,14 @@ public class RegisterUserService implements ProcessRequest {
     }
 
     private void publishRegistrationOtpNotification(User savedUser, BaseRequest baseRequest) {
-        registrationOtpService.issueOtp(savedUser, baseRequest, "auth-register", false);
+        registrationOtpService.issueOtp(savedUser, baseRequest, "auth-register", false, null);
+    }
+
+    private boolean isNotBlank(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
+    private String normalize(String value) {
+        return isNotBlank(value) ? value.trim() : null;
     }
 }

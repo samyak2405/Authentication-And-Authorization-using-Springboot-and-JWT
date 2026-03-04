@@ -17,4 +17,5 @@ public class RegisterUserResponse {
 
     private UUID userId;
     private String email;
+    private String mobile;
 }

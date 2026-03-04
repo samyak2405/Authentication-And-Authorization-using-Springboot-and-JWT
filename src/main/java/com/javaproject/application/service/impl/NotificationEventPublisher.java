@@ -23,6 +23,9 @@ public class NotificationEventPublisher {
     @Value("${app.notifications.routing-key.email:email.send}")
     private String emailRoutingKey;
 
+    @Value("${app.notifications.routing-key.sms:sms.send}")
+    private String smsRoutingKey;
+
     public void publishRegistrationOtpEvent(NotificationEventMessage message, String correlationId) {
         try {
             MessagePostProcessor messagePostProcessor = rabbitMessage -> {
@@ -31,9 +34,12 @@ public class NotificationEventPublisher {
                 }
                 return rabbitMessage;
             };
-            rabbitTemplate.convertAndSend(exchange, emailRoutingKey, message, messagePostProcessor);
+            String routingKey = message.getChannel() == null || message.getChannel().name().equalsIgnoreCase("EMAIL")
+                    ? emailRoutingKey
+                    : smsRoutingKey;
+            rabbitTemplate.convertAndSend(exchange, routingKey, message, messagePostProcessor);
             log.info("Published notification event. exchange={}, routingKey={}, notificationMessage={}, messagePostProcessor:{}",
-                    exchange, emailRoutingKey, message.toString(), messagePostProcessor);
+                    exchange, routingKey, message.toString(), messagePostProcessor);
         } catch (Exception ex) {
             // Registration flow should not fail because of downstream async notification delivery.
             log.error("Failed to publish notification event for userId={}. Error={}",

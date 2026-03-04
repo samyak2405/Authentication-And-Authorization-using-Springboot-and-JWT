@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Index;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,13 @@ import org.hibernate.annotations.UuidGenerator;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@Table(name = "otp_tokens")
+@Table(
+        name = "otp_tokens",
+        indexes = {
+                @Index(name = "idx_otp_user_purpose_consumed_issued", columnList = "user_id,purpose,consumed_at,issued_at"),
+                @Index(name = "idx_otp_expires_at", columnList = "expires_at")
+        }
+)
 @Entity
 @Getter
 @Setter
@@ -37,7 +44,7 @@ public class OtpToken {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "token_hash", nullable = false, unique = true, length = 255)
+    @Column(name = "token_hash", nullable = false, length = 255)
     private String tokenHash;
 
     @Column(name = "purpose", nullable = false, length = 32)

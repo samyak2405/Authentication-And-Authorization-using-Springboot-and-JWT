@@ -57,6 +57,7 @@ public class SecurityConfig {
                                 "/api/auth/v1/verify-registration-otp",
                                 "/api/auth/v1/resend-registration-otp",
                                 "/api/auth/v1/login",
+                                "/api/auth/v1/login/google",
                                 "/api/auth/v1/forgot-password",
                                 "/api/auth/v1/reset-password"
                         ).permitAll()

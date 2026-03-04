@@ -10,6 +10,7 @@ import lombok.*;
 @ToString
 public class RegistrationOtpPayload {
     private String email;
+    private String mobile;
     private String otp;
     private int expiryMinutes;
 }

@@ -16,5 +16,6 @@ import java.util.UUID;
 public class VerifyRegistrationOtpResponse {
     private UUID userId;
     private String email;
+    private String mobile;
     private boolean active;
 }

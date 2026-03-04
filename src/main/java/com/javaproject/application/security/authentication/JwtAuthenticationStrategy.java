@@ -3,7 +3,6 @@ package com.javaproject.application.security.authentication;
 import com.javaproject.application.dto.request.BaseRequest;
 import com.javaproject.application.dto.request.LoginUserRequest;
 import com.javaproject.application.exception.custom.ProcessApiException;
-import com.javaproject.application.exception.custom.UserNotFoundException;
 import com.javaproject.application.model.RefreshToken;
 import com.javaproject.application.model.Role;
 import com.javaproject.application.model.User;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -38,6 +36,7 @@ public class JwtAuthenticationStrategy implements AuthenticationStrategy {
     private final UserRoleRepository userRoleRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtService jwtService;
+    private final List<LoginCredentialStrategy> loginCredentialStrategies;
 
     @Override
     public String getStrategyName() {
@@ -47,43 +46,58 @@ public class JwtAuthenticationStrategy implements AuthenticationStrategy {
     @Override
     public AuthenticationResult authenticate(BaseRequest request) {
         LoginUserRequest loginRequest = (LoginUserRequest) request;
+        boolean hasEmailPassword = hasText(loginRequest.getEmail()) && hasText(loginRequest.getPassword());
+        boolean hasMobileOtp = hasText(loginRequest.getMobile()) && hasText(loginRequest.getOtp());
 
-        // 1. Lookup user
-        User user = userRepository.getByEmail(loginRequest.getEmail())
-                .orElseThrow(() -> new UserNotFoundException("Invalid email or password"));
-
-        // 2. Check account state
-        validateAccountState(user);
-
-        // 3. Verify password
-        if (!PasswordUtility.verifyPassword(loginRequest.getPassword(), user.getPasswordHash())) {
-            handleFailedLogin(user);
-            throw new ProcessApiException("Invalid email or password", HttpStatus.UNAUTHORIZED);
+        if (hasEmailPassword && hasMobileOtp) {
+            throw new ProcessApiException(
+                    "Provide either email+password or mobile+otp, not both.",
+                    HttpStatus.BAD_REQUEST
+            );
         }
 
-        // 4. Reset failed login count on success
+        if (!hasEmailPassword && !hasMobileOtp) {
+            throw new ProcessApiException(
+                    "Provide either email+password or mobile+otp.",
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+
+        LoginCredentialStrategy loginCredentialStrategy = loginCredentialStrategies.stream()
+                .filter(strategy -> strategy.supports(loginRequest))
+                .findFirst()
+                .orElseThrow(() -> new ProcessApiException(
+                        "Unsupported login credential combination.",
+                        HttpStatus.BAD_REQUEST
+                ));
+
+        User user = loginCredentialStrategy.authenticate(loginRequest);
+        log.debug("Selected login credential strategy: {}", loginCredentialStrategy.getName());
+
+        // Reset failed login count on success
         user.setFailedLoginCount(0);
         user.setLastLoginAt(OffsetDateTime.now());
         userRepository.save(user);
 
-        // 5. Load roles
+        // Load roles
         List<String> roles = userRoleRepository.findByUser(user).stream()
                 .map(UserRole::getRole)
                 .map(Role::getName)
                 .collect(Collectors.toList());
 
-        // 6. Generate tokens
-        String accessToken = jwtService.generateAccessToken(user.getId(), user.getEmail(), roles);
+        // Generate tokens
+        String accessToken = jwtService.generateAccessToken(user.getId(), resolveTokenSubject(user), roles);
         String refreshToken = jwtService.generateRefreshToken(user.getId());
 
-        // 7. Persist refresh token
+        // Persist refresh token
         persistRefreshToken(user, refreshToken);
 
-        log.info("User [{}] authenticated via JWT", user.getEmail());
+        log.info("User [{}] authenticated via JWT", resolveUserIdentifier(user));
 
         return AuthenticationResult.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
+                .mobile(user.getMobile())
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .accessTokenExpiresAt(jwtService.getAccessTokenExpiry())
@@ -91,25 +105,6 @@ public class JwtAuthenticationStrategy implements AuthenticationStrategy {
                 .roles(roles)
                 .authenticationMethod(STRATEGY_NAME)
                 .build();
-    }
-
-    private void validateAccountState(User user) {
-        if (!user.isActive()) {
-            throw new ProcessApiException("Account is deactivated", HttpStatus.FORBIDDEN);
-        }
-        if (user.getLockedUntil() != null && user.getLockedUntil().isAfter(OffsetDateTime.now())) {
-            throw new ProcessApiException("Account is locked until " + user.getLockedUntil(), HttpStatus.FORBIDDEN);
-        }
-        if (user.getAccountExpiresAt() != null && user.getAccountExpiresAt().isBefore(OffsetDateTime.now())) {
-            throw new ProcessApiException("Account has expired", HttpStatus.FORBIDDEN);
-        }
-    }
-
-    private void handleFailedLogin(User user) {
-        user.setFailedLoginCount(user.getFailedLoginCount() + 1);
-        user.setLastFailedLoginAt(OffsetDateTime.now());
-        userRepository.save(user);
-        log.warn("Failed login attempt for user [{}]. Count: {}", user.getEmail(), user.getFailedLoginCount());
     }
 
     private void persistRefreshToken(User user, String rawToken) {
@@ -120,5 +115,23 @@ public class JwtAuthenticationStrategy implements AuthenticationStrategy {
                 .expiresAt(jwtService.getRefreshTokenExpiry())
                 .build();
         refreshTokenRepository.save(entity);
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
+    private String resolveUserIdentifier(User user) {
+        if (hasText(user.getEmail())) {
+            return user.getEmail();
+        }
+        return user.getMobile();
+    }
+
+    private String resolveTokenSubject(User user) {
+        if (hasText(user.getEmail())) {
+            return user.getEmail();
+        }
+        return user.getMobile();
     }
 }

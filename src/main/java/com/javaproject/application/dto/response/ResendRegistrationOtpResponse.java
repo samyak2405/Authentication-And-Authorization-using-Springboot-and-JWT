@@ -17,5 +17,6 @@ import java.util.UUID;
 public class ResendRegistrationOtpResponse {
     private UUID userId;
     private String email;
+    private String mobile;
     private OffsetDateTime otpExpiresAt;
 }

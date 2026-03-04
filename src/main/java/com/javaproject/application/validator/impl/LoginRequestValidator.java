@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -19,11 +21,15 @@ public class LoginRequestValidator implements Validator {
     @Override
     public void validateRequest(BaseRequest baseRequest) {
         LoginUserRequest loginUserRequest = (LoginUserRequest) baseRequest;
-            if (loginUserRequest.getEmail() == null || loginUserRequest.getEmail().isEmpty()) {
-                throw new ApiValidationException("Username cannot be null or empty.");
-            }
-            if (loginUserRequest.getPassword() == null || loginUserRequest.getPassword().isEmpty()) {
-                throw new ApiValidationException("Password cannot be null or empty.");
-            }
+        boolean hasEmailPassword = isNotBlank(loginUserRequest.getEmail()) && isNotBlank(loginUserRequest.getPassword());
+        boolean hasMobileOtp = isNotBlank(loginUserRequest.getMobile()) && isNotBlank(loginUserRequest.getOtp());
+
+        if (!hasEmailPassword && !hasMobileOtp) {
+            throw new ApiValidationException("Provide either email+password or mobile+otp.");
+        }
+    }
+
+    private boolean isNotBlank(String value) {
+        return !Objects.isNull(value) && !value.trim().isEmpty();
     }
 }
